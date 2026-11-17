@@ -26,8 +26,8 @@ jobs:
         run: npx --yes htmlhint "ShopEasy-Demo-Store/*.html"
 
   browser-testing:
-    name: Playwright Smoke Testing
-    runs-on: ubuntu-latest
+  name: Playwright Smoke Testing
+  runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout Repository
