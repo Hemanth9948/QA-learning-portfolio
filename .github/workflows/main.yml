@@ -12,9 +12,21 @@ on:
 
   workflow_dispatch:
 
+
 jobs:
   html-validation:
-    name: Validate Website HTML
+    name: HTML Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Validate HTML
+        run: npx --yes htmlhint "ShopEasy-Demo-Store/*.html"
+
+  browser-testing:
+    name: Playwright Smoke Testing
     runs-on: ubuntu-latest
 
     steps:
@@ -26,12 +38,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Check Website Files
-        run: |
-          test -f ShopEasy-Demo-Store/index.html
-          test -f ShopEasy-Demo-Store/login.html
-          test -f ShopEasy-Demo-Store/cart.html
-          echo "Website files are available"
+      - name: Install Dependencies
+        run: npm install
 
-      - name: Validate HTML
-        run: npx --yes htmlhint "ShopEasy-Demo-Store/*.html"
+      - name: Install Playwright Browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute QA Tests
+        run: npm test
+
