@@ -1,0 +1,37 @@
+
+name: ShopEasy QA Checks
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  html-validation:
+    name: Validate Website HTML
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check Website Files
+        run: |
+          test -f ShopEasy-Demo-Store/index.html
+          test -f ShopEasy-Demo-Store/login.html
+          test -f ShopEasy-Demo-Store/cart.html
+          echo "Website files are available"
+
+      - name: Validate HTML
+        run: npx --yes htmlhint "ShopEasy-Demo-Store/*.html"
