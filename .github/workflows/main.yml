@@ -13,6 +13,7 @@ on:
   workflow_dispatch:
 
 
+
 jobs:
   html-validation:
     name: HTML Validation
@@ -26,8 +27,8 @@ jobs:
         run: npx --yes htmlhint "ShopEasy-Demo-Store/*.html"
 
   browser-testing:
-  name: Playwright Smoke Testing
-  runs-on: ubuntu-24.04
+    name: Playwright Smoke Testing
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout Repository
@@ -46,4 +47,3 @@ jobs:
 
       - name: Execute QA Tests
         run: npm test
-
